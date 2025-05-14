@@ -7,6 +7,7 @@ from data import produto_repo
 from data import cliente_repo
 
 
+
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
@@ -26,6 +27,12 @@ async def get_root():
 async def get_clientes():
     clientes = cliente_repo.obter_todos()
     response = templates.TemplateResponse("clientes.html", {"request": {}, "clientes": clientes})
+    return response
+
+@app.get("/produtos")
+async def get_clientes():
+    produtos = produto_repo.obter_todos()
+    response = templates.TemplateResponse("produtos.html", {"request": {}, "produtos": produtos})
     return response
 
 
